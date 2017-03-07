@@ -21,7 +21,7 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-java-prototype</artifactId>
-        <version>1.32</version>
+        <version>1.42</version>
     </parent>
     <groupId>nl.knaw.dans.easy</groupId>
 	<artifactId>emd</artifactId>
@@ -166,9 +166,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
