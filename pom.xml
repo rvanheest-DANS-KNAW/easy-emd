@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) ${project.inceptionYear} DANS - Data Archiving and Networked Services (info@dans.knaw.nl)
+    Copyright (C) 2014 DANS - Data Archiving and Networked Services (info@dans.knaw.nl)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@
     <groupId>nl.knaw.dans.easy</groupId>
 	<artifactId>emd</artifactId>
 	<name>EASY Metadata Library (EMD)</name>
+    <inceptionYear>2014</inceptionYear>
     <version>2.x-SNAPSHOT</version>
 	<dependencies>
 		<dependency>
@@ -262,11 +263,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-			<plugin>
-				<groupId>org.jibx</groupId>
-				<artifactId>maven-jibx-plugin</artifactId>
-                <version>1.2.5</version>
-			</plugin>
 		</plugins>
 	</build>
 </project>
