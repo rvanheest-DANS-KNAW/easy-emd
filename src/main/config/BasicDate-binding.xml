@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2014 DANS - Data Archiving and Networked Services (info@dans.knaw.nl)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<binding>
+
+	<mapping class="nl.knaw.dans.pf.language.emd.types.BasicDate" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/"
+		abstract="true">
+
+		<namespace uri="http://www.w3.org/XML/1998/namespace" prefix="xml" />
+		<namespace uri="http://easy.dans.knaw.nl/easy/easymetadata/eas/" prefix="eas" />
+
+		<value style="attribute" ns="http://www.w3.org/XML/1998/namespace" name="lang" field="language" usage="optional" />
+		<value style="attribute" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="scheme" field="scheme" usage="optional" />
+		<value style="attribute" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="schemeId" field="schemeId" usage="optional" />
+		<value style="text" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" set-method="setValue" get-method="getValue" usage="optional"/>
+
+
+	</mapping>
+
+</binding>
