@@ -28,6 +28,10 @@
 	<name>EASY Metadata Library (EMD)</name>
     <inceptionYear>2014</inceptionYear>
     <version>2.x-SNAPSHOT</version>
+    <scm>
+        <developerConnection>scm:git:https://github.com/DANS-KNAW/${project.artifactId}</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 	<dependencies>
 		<dependency>
 			<groupId>nl.knaw.dans.easy</groupId>
