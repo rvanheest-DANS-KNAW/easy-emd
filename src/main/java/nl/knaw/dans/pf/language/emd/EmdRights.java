@@ -39,12 +39,9 @@ public class EmdRights extends AbstractEmdContainer {
     /**
      * Terms contained.
      */
-    static final Term[] TERMS = {
-        new Term(Term.Name.RIGHTS, Term.Namespace.DC, BasicString.class),
-        new Term(Term.Name.ACCESSRIGHTS, Term.Namespace.DCTERMS, BasicString.class),
-        new Term(Term.Name.LICENSE, Term.Namespace.DCTERMS, BasicString.class),
-        new Term(Term.Name.RIGHTSHOLDER, Term.Namespace.DCTERMS, BasicString.class)
-    };
+    static final Term[] TERMS = {new Term(Term.Name.RIGHTS, Term.Namespace.DC, BasicString.class),
+            new Term(Term.Name.ACCESSRIGHTS, Term.Namespace.DCTERMS, BasicString.class),
+            new Term(Term.Name.LICENSE, Term.Namespace.DCTERMS, BasicString.class), new Term(Term.Name.RIGHTSHOLDER, Term.Namespace.DCTERMS, BasicString.class)};
 
     public static final String RIGHTS = "";
     public static final String ACCESS_RIGHTS = "accessRights";

@@ -70,4 +70,13 @@ public final class ListFactory {
         return new ArrayList<BasicRemark>();
     }
 
+    // Method used by JiBX serialization.
+    static synchronized List<PolygonPart> polygonPartList() {
+        return new ArrayList<PolygonPart>();
+    }
+
+    // Method used by JiBX serialization.
+    static synchronized List<PolygonPoint> polygonPointList() {
+        return new ArrayList<PolygonPoint>();
+    }
 }

@@ -34,11 +34,9 @@ public class EmdCoverage extends AbstractEmdContainer {
     /**
      * Terms contained.
      */
-    static final Term[] TERMS = {
-        new Term(Term.Name.COVERAGE, Term.Namespace.DC, BasicString.class),
-        new Term(Term.Name.SPATIAL, Term.Namespace.DCTERMS, BasicString.class),
-        new Term(Term.Name.TEMPORAL, Term.Namespace.DCTERMS, BasicString.class),
-        new Term(Term.Name.SPATIAL, Term.Namespace.EAS, Spatial.class)};
+    static final Term[] TERMS = {new Term(Term.Name.COVERAGE, Term.Namespace.DC, BasicString.class),
+            new Term(Term.Name.SPATIAL, Term.Namespace.DCTERMS, BasicString.class), new Term(Term.Name.TEMPORAL, Term.Namespace.DCTERMS, BasicString.class),
+            new Term(Term.Name.SPATIAL, Term.Namespace.EAS, Spatial.class)};
 
     /**
      *

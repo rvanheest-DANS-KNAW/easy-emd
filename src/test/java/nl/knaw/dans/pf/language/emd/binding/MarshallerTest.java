@@ -46,7 +46,7 @@ public class MarshallerTest {
     @Test
     public void marshallAndUnmarshallMethods() throws Exception {
         EasyMetadataImpl emd = new EasyMetadataImpl(MetadataFormat.DEFAULT);
-        EmdHelper.populate(2, emd);
+        EmdHelper.populate(3, emd);
 
         EmdMarshaller m = new EmdMarshaller(emd);
         EmdUnmarshaller<EasyMetadata> um = new EmdUnmarshaller<EasyMetadata>(EasyMetadataImpl.class);
@@ -99,7 +99,7 @@ public class MarshallerTest {
     @Test
     public void settings() throws Exception {
         EasyMetadataImpl emd = new EasyMetadataImpl(MetadataFormat.DEFAULT);
-        EmdHelper.populate(2, emd);
+        EmdHelper.populate(3, emd);
 
         EmdMarshaller m = new EmdMarshaller(emd);
         assertTrue(m.getStandalone());
@@ -133,7 +133,7 @@ public class MarshallerTest {
     @Test
     public void w3cDomDocumentSettings() throws Exception {
         EasyMetadataImpl emd = new EasyMetadataImpl(MetadataFormat.DEFAULT);
-        EmdHelper.populate(2, emd);
+        EmdHelper.populate(3, emd);
 
         EmdMarshaller m = new EmdMarshaller(emd);
         assertTrue(m.getStandalone());
@@ -172,7 +172,7 @@ public class MarshallerTest {
     @Test
     public void w3cDomElementSettings() throws Exception {
         EasyMetadataImpl emd = new EasyMetadataImpl(MetadataFormat.DEFAULT);
-        EmdHelper.populate(2, emd);
+        EmdHelper.populate(3, emd);
 
         EmdMarshaller m = new EmdMarshaller(emd);
         assertTrue(m.getStandalone());
@@ -233,5 +233,4 @@ public class MarshallerTest {
         JiBXMarshaller jm = new JiBXMarshaller(EmdMarshaller.BINDING_NAME, author);
         jm.getXmlString();
     }
-
 }
