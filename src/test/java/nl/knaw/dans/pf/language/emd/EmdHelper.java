@@ -17,6 +17,8 @@ package nl.knaw.dans.pf.language.emd;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -140,11 +142,27 @@ public class EmdHelper {
                     Spatial.Point point = new Spatial.Point("POI" + i, "123.45", "456.78");
                     point.setSchemeId("point.bla" + i);
                     spat.setPoint(point);
-                } else {
+                } else if (i % 2 == 1) {
                     // Spatial.Box box = new Spatial.Box("BOX" + i, 12.3, 23.4, 34.5, 45.6);
                     Spatial.Box box = new Spatial.Box("BOX" + i, "12.3", "23.4", "34.5", "45.6");
-                    box.setSchemeId("bax.bla" + i);
+                    box.setSchemeId("box.bla" + i);
                     spat.setBox(box);
+                } else {
+//                  Spatial.PolygonPart exterior = new Spatial.PolygonPart("main triangle",
+//                      Arrays.asList(
+//                          new Spatial.PolygonPoint("52.08110", "4.34521"),
+//                          new Spatial.PolygonPoint("52.08071", "4.34422"),
+//                          new Spatial.PolygonPoint("52.07913", "4.34332"),
+//                          new Spatial.PolygonPoint("52.08110", "4.34521")));
+//                  Spatial.PolygonPart interior1 = new Spatial.PolygonPart("main triangle",
+//                      Arrays.asList(
+//                          new Spatial.PolygonPoint("52.080542", "4.344215"),
+//                          new Spatial.PolygonPoint("52.080450", "4.344323"),
+//                          new Spatial.PolygonPoint("52.080357", "4.344110"),
+//                          new Spatial.PolygonPoint("52.080542", "4.344215")));
+//                  Spatial.Polygon polygon = new Spatial.Polygon("POLYGON" + i, exterior, Collections.singletonList(interior1));
+//                  polygon.setSchemeId("polygon.bla" + 1);
+//                  spat.setPolygon(polygon);
                 }
                 list.add(spat);
             }
