@@ -38,7 +38,7 @@ public final class EMDValidator extends AbstractValidator {
      */
     public static final String VERSION_0_1 = "0.1";
 
-    public static final String SCHEMA_LOCATION = "http://deasy.dans.knaw.nl/schemas/md/emd/2017/09/emd.xsd";
+    public static final String SCHEMA_LOCATION = "http://easy.dans.knaw.nl/schemas/md/emd/2017/09/emd.xsd";
 
     private static final EMDValidator instance = new EMDValidator();
 
@@ -82,5 +82,4 @@ public final class EMDValidator extends AbstractValidator {
     public XMLErrorHandler validate(EasyMetadata emd) throws XMLException, SAXException {
         return validate(new EmdMarshaller(emd).getXmlString(), null);
     }
-
 }
