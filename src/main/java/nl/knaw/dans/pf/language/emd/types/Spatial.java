@@ -549,7 +549,15 @@ public class Spatial implements MetadataItem {
         }
 
         public boolean isComplete() {
-            return this.exterior != null && this.interior != null;
+            return this.exterior != null && this.interior != null && this.exterior.isComplete() && isComplete(this.interior);
+        }
+
+        private boolean isComplete(List<PolygonPart> pps) {
+            for (PolygonPart pp : pps) {
+                if (!pp.isComplete())
+                    return false;
+            }
+            return true;
         }
     }
 }

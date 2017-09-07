@@ -1,11 +1,8 @@
 package nl.knaw.dans.pf.language.emd.types;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class PolygonPart implements Serializable {
-
-    private static final long serialVersionUID = -4863048182836567384L;
+public class PolygonPart {
 
     private String place;
     private List<PolygonPoint> points;
@@ -39,6 +36,14 @@ public class PolygonPart implements Serializable {
     }
 
     public boolean isComplete() {
-        return this.place != null && this.points != null;
+        return this.place != null && this.points != null && isComplete(this.points);
+    }
+
+    private boolean isComplete(List<PolygonPoint> pps) {
+        for (PolygonPoint pp : pps) {
+            if (!pp.isComplete())
+                return false;
+        }
+        return true;
     }
 }

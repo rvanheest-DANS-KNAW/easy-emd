@@ -1,10 +1,6 @@
 package nl.knaw.dans.pf.language.emd.types;
 
-import java.io.Serializable;
-
-public class PolygonPoint implements Serializable {
-
-    private static final long serialVersionUID = -4108876677692958853L;
+public class PolygonPoint {
 
     private String x;
     private String y;
