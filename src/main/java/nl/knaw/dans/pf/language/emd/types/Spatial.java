@@ -16,6 +16,7 @@
 package nl.knaw.dans.pf.language.emd.types;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Expresses a spatial coverage.
@@ -34,6 +35,8 @@ public class Spatial implements MetadataItem {
     private Point point;
 
     private Box box;
+
+    private Polygon polygon;
 
     /**
      * Constructor.
@@ -68,6 +71,12 @@ public class Spatial implements MetadataItem {
         super();
         this.place = new BasicString(place);
         this.box = box;
+    }
+
+    public Spatial(String place, Polygon polygon) {
+      super();
+      this.place = new BasicString(place);
+      this.polygon = polygon;
     }
 
     /**
@@ -139,13 +148,23 @@ public class Spatial implements MetadataItem {
         }
     }
 
-    @Override
+  public Polygon getPolygon() {
+    return this.polygon;
+  }
+
+  public void setPolygon(Polygon polygon) {
+    this.polygon = polygon;
+  }
+
+  @Override
     public String getSchemeId() {
         // locator has schemeId in scheme instead of schemeId!
         if (point != null) {
             return point.getScheme();
         } else if (box != null) {
             return box.getScheme();
+        } else if (polygon != null) {
+          return polygon.getScheme();
         } else {
             return null;
         }
@@ -168,6 +187,9 @@ public class Spatial implements MetadataItem {
         if (box != null) {
             builder.append(box.toString());
         }
+        if (polygon != null) {
+          builder.append(polygon.toString());
+        }
         return builder.toString();
     }
 
@@ -177,6 +199,8 @@ public class Spatial implements MetadataItem {
             complete = point.isComplete();
         } else if (box != null) {
             complete = box.isComplete();
+        } else if (polygon != null) {
+            complete = polygon.isComplete();
         }
         return complete;
     }
@@ -479,4 +503,122 @@ public class Spatial implements MetadataItem {
 
     }
 
+    public static class Polygon extends Locator {
+
+      private static final long serialVersionUID = 7316626274747251053L;
+
+      private PolygonPart exterior;
+      private List<PolygonPart> interior;
+
+      public Polygon() {
+        super();
+      }
+
+      public Polygon(String scheme, PolygonPart exterior, List<PolygonPart> interior) {
+        super(scheme);
+        this.exterior = exterior;
+        this.interior = interior;
+      }
+
+      public PolygonPart getExterior() {
+        return this.exterior;
+      }
+
+      public void setExterior(PolygonPart exterior) {
+        this.exterior = exterior;
+      }
+
+      public List<PolygonPart> getInterior() {
+        return this.interior;
+      }
+
+      public void setInterior(List<PolygonPart> interior) {
+        this.interior = interior;
+      }
+
+      @Override
+      public String toString() {
+        return String.format("(exterior=%s, interior=%s)", this.exterior, this.interior);
+      }
+
+      public boolean isComplete() {
+        return this.exterior != null && this.interior != null;
+      }
+    }
+
+    public static class PolygonPart {
+
+      private String place;
+      private List<PolygonPoint> points;
+
+      public PolygonPart() {}
+
+      public PolygonPart(String place, List<PolygonPoint> points) {
+        this.place = place;
+        this.points = points;
+      }
+
+      public String getPlace() {
+        return this.place;
+      }
+
+      public void setPlace(String place) {
+        this.place = place;
+      }
+
+      public List<PolygonPoint> getPoints() {
+        return this.points;
+      }
+
+      public void setPoints(List<PolygonPoint> points) {
+        this.points = points;
+      }
+
+      @Override
+      public String toString() {
+        return String.format("(place=%s, points=%s)", this.place, this.points);
+      }
+
+      public boolean isComplete() {
+        return this.place != null && this.points != null;
+      }
+    }
+
+    public static class PolygonPoint {
+
+      private String x;
+      private String y;
+
+      public PolygonPoint() {}
+
+      public PolygonPoint(String x, String y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      public String getX() {
+        return this.x;
+      }
+
+      public void setX(String x) {
+        this.x = x;
+      }
+
+      public String getY() {
+        return this.y;
+      }
+
+      public void setY(String y) {
+        this.y = y;
+      }
+
+      @Override
+      public String toString() {
+        return String.format("(x=%s, y=%s)", this.x, this.y);
+      }
+
+      public boolean isComplete() {
+        return this.x != null && this.y != null;
+      }
+    }
 }
