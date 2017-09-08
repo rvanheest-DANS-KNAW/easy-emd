@@ -17,6 +17,8 @@ package nl.knaw.dans.pf.language.emd;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +28,8 @@ import nl.knaw.dans.pf.language.emd.types.BasicIdentifier;
 import nl.knaw.dans.pf.language.emd.types.BasicRemark;
 import nl.knaw.dans.pf.language.emd.types.BasicString;
 import nl.knaw.dans.pf.language.emd.types.IsoDate;
+import nl.knaw.dans.pf.language.emd.types.PolygonPart;
+import nl.knaw.dans.pf.language.emd.types.PolygonPoint;
 import nl.knaw.dans.pf.language.emd.types.Relation;
 import nl.knaw.dans.pf.language.emd.types.Spatial;
 
@@ -135,16 +139,24 @@ public class EmdHelper {
             for (int i = 0; i < times; i++) {
                 Spatial spat = new Spatial();
                 spat.setPlace(getBasicString(term, i));
-                if (i % 2 == 0) {
+                if (i % 3 == 0) {
                     // Spatial.Point point = new Spatial.Point("POI" + i, 123.45, 456.78);
                     Spatial.Point point = new Spatial.Point("POI" + i, "123.45", "456.78");
                     point.setSchemeId("point.bla" + i);
                     spat.setPoint(point);
-                } else {
+                } else if (i % 3 == 1) {
                     // Spatial.Box box = new Spatial.Box("BOX" + i, 12.3, 23.4, 34.5, 45.6);
                     Spatial.Box box = new Spatial.Box("BOX" + i, "12.3", "23.4", "34.5", "45.6");
-                    box.setSchemeId("bax.bla" + i);
+                    box.setSchemeId("box.bla" + i);
                     spat.setBox(box);
+                } else {
+                    PolygonPart exterior = new PolygonPart("main triangle", Arrays.asList(new PolygonPoint("52.08110", "4.34521"), new PolygonPoint("52.08071",
+                            "4.34422"), new PolygonPoint("52.07913", "4.34332"), new PolygonPoint("52.08110", "4.34521")));
+                    PolygonPart interior1 = new PolygonPart("hole1", Arrays.asList(new PolygonPoint("52.080542", "4.344215"), new PolygonPoint("52.080450",
+                            "4.344323"), new PolygonPoint("52.080357", "4.344110"), new PolygonPoint("52.080542", "4.344215")));
+                    Spatial.Polygon polygon = new Spatial.Polygon("POLYGON" + i, exterior, Collections.singletonList(interior1));
+                    polygon.setSchemeId("polygon.bla" + 1);
+                    spat.setPolygon(polygon);
                 }
                 list.add(spat);
             }
@@ -170,5 +182,4 @@ public class EmdHelper {
         bid.setSchemeId("BID.bla.foo" + i);
         return bid;
     }
-
 }

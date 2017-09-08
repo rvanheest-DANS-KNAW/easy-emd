@@ -64,7 +64,7 @@ public class RoundtripTest {
     @Test
     public void easyMetadata() throws Exception {
         EasyMetadataImpl emd = new EasyMetadataImpl(MetadataFormat.DEFAULT);
-        EmdHelper.populate(2, emd);
+        EmdHelper.populate(3, emd);
 
         String xmlString = new EmdMarshaller(emd).getXmlString();
 
@@ -100,7 +100,7 @@ public class RoundtripTest {
     @Test
     public void emdTitle() throws Exception {
         EmdTitle bean = new EmdTitle();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -133,7 +133,7 @@ public class RoundtripTest {
     @Test
     public void emdCreator() throws Exception {
         EmdCreator bean = new EmdCreator();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -170,7 +170,7 @@ public class RoundtripTest {
     @Test
     public void emdSubject() throws Exception {
         EmdSubject bean = new EmdSubject();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -187,7 +187,7 @@ public class RoundtripTest {
     @Test
     public void emdDescription() throws Exception {
         EmdDescription bean = new EmdDescription();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -204,7 +204,7 @@ public class RoundtripTest {
     @Test
     public void emdPublisher() throws Exception {
         EmdPublisher bean = new EmdPublisher();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -221,7 +221,7 @@ public class RoundtripTest {
     @Test
     public void emdContributor() throws Exception {
         EmdContributor bean = new EmdContributor();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -238,7 +238,7 @@ public class RoundtripTest {
     @Test
     public void emdDate() throws Exception {
         EmdDate bean = new EmdDate();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -255,7 +255,7 @@ public class RoundtripTest {
     @Test
     public void emdType() throws Exception {
         EmdType bean = new EmdType();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -272,7 +272,7 @@ public class RoundtripTest {
     @Test
     public void emdFormat() throws Exception {
         EmdFormat bean = new EmdFormat();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -289,7 +289,7 @@ public class RoundtripTest {
     @Test
     public void emdIdentifier() throws Exception {
         EmdIdentifier bean = new EmdIdentifier();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -306,7 +306,7 @@ public class RoundtripTest {
     @Test
     public void emdSource() throws Exception {
         EmdSource bean = new EmdSource();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -323,7 +323,7 @@ public class RoundtripTest {
     @Test
     public void emdLanguage() throws Exception {
         EmdLanguage bean = new EmdLanguage();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -340,7 +340,7 @@ public class RoundtripTest {
     @Test
     public void emdRelation() throws Exception {
         EmdRelation bean = new EmdRelation();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -357,7 +357,7 @@ public class RoundtripTest {
     @Test
     public void emdCoverage() throws Exception {
         EmdCoverage bean = new EmdCoverage();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -374,7 +374,7 @@ public class RoundtripTest {
     @Test
     public void emdRights() throws Exception {
         EmdRights bean = new EmdRights();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -391,7 +391,7 @@ public class RoundtripTest {
     @Test
     public void emdAudience() throws Exception {
         EmdAudience bean = new EmdAudience();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -408,7 +408,7 @@ public class RoundtripTest {
     @Test
     public void emdOther() throws Exception {
         EmdOther bean = new EmdOther();
-        EmdHelper.populate(2, bean);
+        EmdHelper.populate(3, bean);
 
         String xml = new EmdMarshaller(bean).getXmlString();
 
@@ -421,5 +421,4 @@ public class RoundtripTest {
 
         assertEquals(xml, returnedXml);
     }
-
 }

@@ -46,6 +46,7 @@ public class EmdRights extends AbstractEmdContainer {
     public static final String RIGHTS = "";
     public static final String ACCESS_RIGHTS = "accessRights";
     public static final String LICENSE = "license";
+    public static final String RIGHTSHOLDER = "rightsholder";
 
     public static final String LICENSE_ACCEPT = "accept";
     public static final String SCHEME_LICENSE_ACCEPT_E2V1 = "Easy2 version 1";
@@ -72,11 +73,12 @@ public class EmdRights extends AbstractEmdContainer {
         map.put(RIGHTS, this.getDcRights());
         map.put(ACCESS_RIGHTS, this.getTermsAccessRights());
         map.put(LICENSE, this.getTermsLicense());
+        map.put(RIGHTSHOLDER, this.getTermsRightsHolder());
 
         return map;
     }
 
-    public static final String[] LIST_KEYS = {RIGHTS, ACCESS_RIGHTS, LICENSE};
+    public static final String[] LIST_KEYS = {RIGHTS, ACCESS_RIGHTS, LICENSE, RIGHTSHOLDER};
 
     /**
      * {@inheritDoc}
