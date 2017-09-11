@@ -154,7 +154,9 @@ public class EmdHelper {
                             "4.34422"), new PolygonPoint("52.07913", "4.34332"), new PolygonPoint("52.08110", "4.34521")));
                     PolygonPart interior1 = new PolygonPart("hole1", Arrays.asList(new PolygonPoint("52.080542", "4.344215"), new PolygonPoint("52.080450",
                             "4.344323"), new PolygonPoint("52.080357", "4.344110"), new PolygonPoint("52.080542", "4.344215")));
-                    Spatial.Polygon polygon = new Spatial.Polygon("POLYGON" + i, exterior, Collections.singletonList(interior1));
+                    PolygonPart interior2 = new PolygonPart("hole2", Arrays.asList(new PolygonPoint("52.080542", "4.344215"), new PolygonPoint("52.080450",
+                            "4.344323"), new PolygonPoint("52.080357", "4.344110"), new PolygonPoint("52.080542", "4.344215")));
+                    Spatial.Polygon polygon = new Spatial.Polygon("POLYGON" + i, exterior, Arrays.asList(interior1, interior2));
                     polygon.setSchemeId("polygon.bla" + 1);
                     spat.setPolygon(polygon);
                 }
