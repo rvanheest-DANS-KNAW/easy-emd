@@ -1,8 +1,9 @@
 package nl.knaw.dans.pf.language.emd.types;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PolygonPart {
+public class PolygonPart implements Serializable {
 
     private String place;
     private List<PolygonPoint> points;

@@ -1,6 +1,8 @@
 package nl.knaw.dans.pf.language.emd.types;
 
-public class PolygonPoint {
+import java.io.Serializable;
+
+public class PolygonPoint implements Serializable {
 
     private String x;
     private String y;
