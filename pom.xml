@@ -27,10 +27,10 @@
 	<artifactId>emd</artifactId>
 	<name>EASY Metadata Library (EMD)</name>
     <inceptionYear>2014</inceptionYear>
-    <version>1.x-SNAPSHOT</version>
+    <version>3.6</version>
     <scm>
         <developerConnection>scm:git:https://github.com/DANS-KNAW/${project.artifactId}</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v3.6</tag>
     </scm>
 	<dependencies>
 		<dependency>
