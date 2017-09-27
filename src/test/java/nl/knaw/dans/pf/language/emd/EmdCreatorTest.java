@@ -15,18 +15,20 @@
  */
 package nl.knaw.dans.pf.language.emd;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import nl.knaw.dans.pf.language.emd.types.Author;
 import nl.knaw.dans.pf.language.emd.types.BasicString;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.LinkedList;
+import java.util.List;
 
 // ecco: CHECKSTYLE: OFF
 
 public class EmdCreatorTest {
+
     @Test
     public void testToStringWithSeparator() {
         EmdCreator emdc = new EmdCreator();
@@ -49,6 +51,25 @@ public class EmdCreatorTest {
     }
 
     @Test
+    public void testToStringAuthorWithRole() throws URISyntaxException {
+        Author author = new Author("Dr.", "A.B.C.", "van", "D.");
+        author.setOrganization("myOrg");
+        author.setEntityIdHolder(new Author.EntityId("12345", "scheme123", new URI("http://x")));
+        author.setRole(new Author.Role("RightsHolder", "DATACITE"));
+
+        Assert.assertEquals("D., Dr. A.B.C. van (myOrg), RightsHolder", author.toString());
+    }
+
+    @Test
+    public void testToStringOrganisationAuthorWithRole() throws URISyntaxException {
+        Author author = new Author();
+        author.setOrganization("myOrg");
+        author.setRole(new Author.Role("Sponsor", "DATACITE"));
+
+        Assert.assertEquals("myOrg, Sponsor", author.toString());
+    }
+
+    @Test
     public void testIsEmpty() {
         List<?> list = new LinkedList<Object>();
         Assert.assertTrue(list.isEmpty());
@@ -61,5 +82,4 @@ public class EmdCreatorTest {
         emdc.getDcCreator().add(null);
         Assert.assertFalse(emdc.isEmpty());
     }
-
 }

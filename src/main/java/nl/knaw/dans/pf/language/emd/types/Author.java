@@ -15,6 +15,7 @@
  */
 package nl.knaw.dans.pf.language.emd.types;
 
+import java.io.Serializable;
 import java.net.URI;
 
 import nl.knaw.dans.common.lang.id.DAI;
@@ -32,6 +33,78 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Author implements MetadataItem {
 
+    public static class Role implements Serializable {
+        private String role;
+        private String scheme;
+
+        public Role() {}
+
+        public Role(String role, String scheme) {
+            this.role = role;
+            this.scheme = scheme;
+        }
+
+        public String getRole() {
+            return this.role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getScheme() {
+            return this.scheme;
+        }
+
+        public void setScheme(String scheme) {
+            if ("DATACITE".equals(scheme))
+                this.scheme = scheme;
+            else
+                throw new IllegalArgumentException("The Author's role scheme can only be \"DATACITE\"");
+        }
+    }
+
+    public static class EntityId implements Serializable {
+
+        private String entityId;
+        private String scheme;
+        private URI identificationSystem;
+
+        public EntityId() {}
+
+        public EntityId(String entityId, String scheme, URI identificationSystem) {
+            this.entityId = entityId;
+            this.scheme = scheme;
+            this.identificationSystem = identificationSystem;
+        }
+
+        public String getEntityId() {
+            return this.entityId;
+        }
+
+        public void setEntityId(String entityId) {
+            this.entityId = entityId;
+            if (this.scheme == null)
+                this.scheme = DEFAULT_SCHEME;
+        }
+
+        public String getScheme() {
+            return this.scheme;
+        }
+
+        public void setScheme(String scheme) {
+            this.scheme = scheme;
+        }
+
+        public URI getIdentificationSystem() {
+            return this.identificationSystem;
+        }
+
+        public void setIdentificationSystem(URI identificationSystem) {
+            this.identificationSystem = identificationSystem;
+        }
+    }
+
     /**
      * The default identification system. {@value}
      */
@@ -47,9 +120,8 @@ public class Author implements MetadataItem {
     private String prefix;
     private String surname;
     private String organization;
-    private URI identificationSystem;
-    private String entityId;
-    private String scheme;
+    private EntityId entityIdHolder;
+    private Role role;
 
     /**
      * Constructs an Author.
@@ -85,7 +157,8 @@ public class Author implements MetadataItem {
     public String toString() {
         return (surname == null || "".equals(surname) ? "" : surname + ", ") + (title == null || "".equals(title) ? "" : title + " ")
                 + (initials == null || "".equals(initials) ? "" : initials) + (prefix == null || "".equals(prefix) ? "" : " " + prefix)
-                + (organization == null ? "" : hasPersonalEntries() ? " (" + organization + ")" : organization);
+                + (organization == null ? "" : hasPersonalEntries() ? " (" + organization + ")" : organization)
+                + (role == null || role.role == null || "".equals(role.role) ? "" : ", " + role.role);
     }
 
     /**
@@ -173,12 +246,34 @@ public class Author implements MetadataItem {
     }
 
     /**
+     * Get the entity id object of this author. This object includes the entity id, its identification system and scheme.
+     * 
+     * @return the entity id object of this author, may be <code>null</code>
+     */
+    public EntityId getEntityIdHolder() {
+        return this.entityIdHolder;
+    }
+
+    /**
+     * Set the entity id object of this author. If the scheme was not yet set, it is set to "DAI".
+     * 
+     * @param entityIdHolder
+     *        the entity id object of this author
+     */
+    public void setEntityIdHolder(EntityId entityIdHolder) {
+        this.entityIdHolder = entityIdHolder;
+        if (this.entityIdHolder.getScheme() == null)
+            this.entityIdHolder.setScheme(DEFAULT_SCHEME);
+    }
+
+    /**
      * Get the scheme by which this author is identified.
      * 
      * @return the scheme by which this author is identified
      */
+    // backwards compatible
     public String getScheme() {
-        return scheme;
+        return this.entityIdHolder.getScheme();
     }
 
     /**
@@ -187,8 +282,12 @@ public class Author implements MetadataItem {
      * @param scheme
      *        the scheme by which this author is identified
      */
+    // keep this for backwards compatibility
     public void setScheme(final String scheme) {
-        this.scheme = scheme;
+        if (this.entityIdHolder == null)
+            this.entityIdHolder = new EntityId(null, scheme, null);
+        else
+            this.entityIdHolder.setScheme(scheme);
     }
 
     /**
@@ -196,8 +295,9 @@ public class Author implements MetadataItem {
      * 
      * @return this author's identification system, may be <code>null</code>
      */
+    // keep this for backwards compatibility
     public URI getIdentificationSystem() {
-        return identificationSystem;
+        return this.entityIdHolder.getIdentificationSystem();
     }
 
     /**
@@ -206,8 +306,12 @@ public class Author implements MetadataItem {
      * @param identificationSystem
      *        this author's identification system, may be <code>null</code>
      */
+    // keep this for backwards compatibility
     public void setIdentificationSystem(final URI identificationSystem) {
-        this.identificationSystem = identificationSystem;
+        if (this.entityIdHolder == null)
+            this.entityIdHolder = new EntityId(null, null, identificationSystem);
+        else
+            this.entityIdHolder.setIdentificationSystem(identificationSystem);
     }
 
     /**
@@ -215,21 +319,20 @@ public class Author implements MetadataItem {
      * 
      * @return the entity id of this author, may be <code>null</code>
      */
+    // keep this for backwards compatibility
     public String getEntityId() {
-        return entityId;
+        return this.entityIdHolder.getEntityId();
     }
 
     /**
-     * Set the entity id of this author. If the scheme was not yet set, it is set to "DAI".
+     * Set the entity id of this author. The scheme is set to "DAI".
      * 
      * @param entityId
      *        the entity id of this author
      */
+    // keep this for backwards compatibility
     public void setEntityId(final String entityId) {
-        this.entityId = entityId;
-        if (scheme == null) {
-            scheme = DEFAULT_SCHEME;
-        }
+        this.entityIdHolder = new EntityId(entityId, DEFAULT_SCHEME, this.entityIdHolder == null ? null : this.entityIdHolder.getIdentificationSystem());
     }
 
     /**
@@ -240,9 +343,22 @@ public class Author implements MetadataItem {
      * @param scheme
      *        formal name of the identification system
      */
+    // keep this for backwards compatibility
     public void setEntityId(final String entityId, final String scheme) {
-        this.entityId = entityId;
-        this.scheme = scheme;
+        if (this.entityIdHolder == null) {
+            new EntityId(entityId, scheme, null);
+        } else {
+            this.entityIdHolder.setEntityId(entityId);
+            this.entityIdHolder.setScheme(scheme);
+        }
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isComplete() {
@@ -256,19 +372,19 @@ public class Author implements MetadataItem {
     }
 
     private boolean hasPersonalEntries() {
-        return StringUtils.isNotBlank(entityId) || StringUtils.isNotBlank(initials) || StringUtils.isNotBlank(prefix) || StringUtils.isNotBlank(surname)
-                || StringUtils.isNotBlank(title);
+        return (this.entityIdHolder != null && StringUtils.isNotBlank(this.entityIdHolder.getEntityId())) || StringUtils.isNotBlank(initials)
+                || StringUtils.isNotBlank(prefix) || StringUtils.isNotBlank(surname) || StringUtils.isNotBlank(title);
     }
 
     public boolean hasDigitalAuthorId() {
-        return EmdConstants.SCHEME_DAI.equals(scheme) && DAI.isValid(entityId);
+        return EmdConstants.SCHEME_DAI.equals(this.entityIdHolder.getScheme()) && DAI.isValid(this.entityIdHolder.getEntityId());
     }
 
     public DAI getDigitalAuthorId() {
         if (!hasDigitalAuthorId()) {
             return null;
         } else {
-            return new DAI(entityId);
+            return new DAI(this.entityIdHolder.getEntityId());
         }
     }
 

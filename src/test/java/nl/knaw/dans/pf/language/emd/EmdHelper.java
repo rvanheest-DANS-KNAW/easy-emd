@@ -15,13 +15,6 @@
  */
 package nl.knaw.dans.pf.language.emd;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
 import nl.knaw.dans.pf.language.emd.types.Author;
 import nl.knaw.dans.pf.language.emd.types.BasicDate;
 import nl.knaw.dans.pf.language.emd.types.BasicIdentifier;
@@ -32,11 +25,16 @@ import nl.knaw.dans.pf.language.emd.types.PolygonPart;
 import nl.knaw.dans.pf.language.emd.types.PolygonPoint;
 import nl.knaw.dans.pf.language.emd.types.Relation;
 import nl.knaw.dans.pf.language.emd.types.Spatial;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static nl.knaw.dans.pf.language.emd.types.ApplicationSpecific.PakbonStatus.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
+import static nl.knaw.dans.pf.language.emd.types.ApplicationSpecific.PakbonStatus.IMPORTED;
 
 // ecco: CHECKSTYLE: OFF
 
@@ -90,13 +88,25 @@ public class EmdHelper {
         } else if (term.getType().equals(Author.class)) {
             for (int i = 0; i < times; i++) {
                 Author author = new Author();
-                author.setEntityId("123" + i);
-                author.setIdentificationSystem(new URI("http://author.org/sys" + i));
-                author.setInitials("abc");
-                author.setPrefix("van");
-                author.setSurname(term.getName().termName + " " + i);
-                author.setTitle("Dr.");
-                author.setOrganization("DANS");
+                if (i % 3 == 0) {
+                    author.setEntityIdHolder(new Author.EntityId("123" + i, null, new URI("http://author.org/sys" + i)));
+                    author.setInitials("abc");
+                    author.setPrefix("van");
+                    author.setSurname(term.getName().termName + " " + i);
+                    author.setTitle("Dr.");
+                } else if (i % 3 <= 1) {
+                    author.setIdentificationSystem(new URI("http://author.org/sys" + i));
+                    author.setEntityId("123" + i);
+                    author.setInitials("abc");
+                    author.setPrefix("van");
+                    author.setSurname(term.getName().termName + " " + i);
+                    author.setTitle("Dr.");
+                    author.setOrganization("DANS");
+                    author.setRole(new Author.Role("RightsHolder", "DATACITE"));
+                } else {
+                    author.setOrganization("DANS");
+                    author.setRole(new Author.Role("DataCollector", "DATACITE"));
+                }
                 list.add(author);
             }
         } else if (term.getType().equals(BasicDate.class)) {
