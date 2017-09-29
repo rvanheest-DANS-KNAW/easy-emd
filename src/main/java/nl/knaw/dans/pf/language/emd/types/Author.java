@@ -40,7 +40,7 @@ public class Author implements MetadataItem {
         public Role() {}
 
         public Role(String role) {
-          this(role, "DATACITE");
+            this(role, "DATACITE");
         }
 
         public Role(String role, String scheme) {
