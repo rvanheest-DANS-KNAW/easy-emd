@@ -350,7 +350,7 @@ public class Author implements MetadataItem {
     // keep this for backwards compatibility
     public void setEntityId(final String entityId, final String scheme) {
         if (this.entityIdHolder == null) {
-            new EntityId(entityId, scheme, null);
+            this.entityIdHolder = new EntityId(entityId, scheme, null);
         } else {
             this.entityIdHolder.setEntityId(entityId);
             this.entityIdHolder.setScheme(scheme);
