@@ -277,6 +277,8 @@ public class Author implements MetadataItem {
      */
     // backwards compatible
     public String getScheme() {
+        if (this.entityIdHolder == null)
+            return null;
         return this.entityIdHolder.getScheme();
     }
 
@@ -301,6 +303,8 @@ public class Author implements MetadataItem {
      */
     // keep this for backwards compatibility
     public URI getIdentificationSystem() {
+        if (this.entityIdHolder == null)
+            return null;
         return this.entityIdHolder.getIdentificationSystem();
     }
 
@@ -325,6 +329,8 @@ public class Author implements MetadataItem {
      */
     // keep this for backwards compatibility
     public String getEntityId() {
+        if (this.entityIdHolder == null)
+            return null;
         return this.entityIdHolder.getEntityId();
     }
 
