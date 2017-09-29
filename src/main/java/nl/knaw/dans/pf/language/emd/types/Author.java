@@ -39,9 +39,13 @@ public class Author implements MetadataItem {
 
         public Role() {}
 
+        public Role(String role) {
+          this(role, "DATACITE");
+        }
+
         public Role(String role, String scheme) {
             this.role = role;
-            this.scheme = scheme;
+            this.setScheme(scheme);
         }
 
         public String getRole() {
