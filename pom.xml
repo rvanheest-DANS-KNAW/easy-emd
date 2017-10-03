@@ -27,7 +27,7 @@
 	<artifactId>emd</artifactId>
 	<name>EASY Metadata Library (EMD)</name>
     <inceptionYear>2014</inceptionYear>
-    <version>3.7.0</version>
+    <version>3.7.1-SNAPSHOT</version>
     <scm>
         <developerConnection>scm:git:https://github.com/DANS-KNAW/${project.artifactId}</developerConnection>
         <tag>HEAD</tag>
