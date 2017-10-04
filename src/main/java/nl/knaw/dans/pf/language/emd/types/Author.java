@@ -387,7 +387,7 @@ public class Author implements MetadataItem {
     }
 
     public boolean hasDigitalAuthorId() {
-        return EmdConstants.SCHEME_DAI.equals(this.entityIdHolder.getScheme()) && DAI.isValid(this.entityIdHolder.getEntityId());
+        return this.entityIdHolder != null && EmdConstants.SCHEME_DAI.equals(this.entityIdHolder.getScheme()) && DAI.isValid(this.entityIdHolder.getEntityId());
     }
 
     public DAI getDigitalAuthorId() {
