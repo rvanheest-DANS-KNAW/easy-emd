@@ -20,8 +20,8 @@
 	<modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
-        <artifactId>dans-java-prototype</artifactId>
-        <version>1.64</version>
+        <artifactId>dans-java-project</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
     <groupId>nl.knaw.dans.easy</groupId>
 	<artifactId>emd</artifactId>
@@ -105,76 +105,7 @@
         </pluginRepository>
     </pluginRepositories>
 	<build>
-		<resources>
-			<resource>
-				<filtering>false</filtering>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-					<exclude>**/package.html</exclude>
-				</excludes>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<filtering>false</filtering>
-				<directory>src/test/java</directory>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-					<exclude>**/package.html</exclude>
-				</excludes>
-			</testResource>
-			<testResource>
-				<filtering>false</filtering>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-			</testResource>
-		</testResources>
 		<plugins>
-            <plugin>
-                <groupId>org.jfrog.buildinfo</groupId>
-                <artifactId>artifactory-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
-                            <properties>
-                                <owner>DANS - Data Archiving and Networked Services</owner>
-                                <email>info@dans.knaw.nl</email>
-                            </properties>
-                            <excludes>
-                                <exclude>**</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-release-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.jibx</groupId>
                 <artifactId>maven-jibx-plugin</artifactId>
