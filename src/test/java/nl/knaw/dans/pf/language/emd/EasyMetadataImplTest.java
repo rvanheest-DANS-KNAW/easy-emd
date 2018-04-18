@@ -63,11 +63,11 @@ public class EasyMetadataImplTest {
     @Test
     public void testToString() throws URISyntaxException {
         EasyMetadataImpl emd = new EasyMetadataImpl(MetadataFormat.DEFAULT);
-        EmdHelper.populate(4, emd);
+        EmdHelper.populate(5, emd);
         String toString = emd.toString(";");
         // System.out.println(toString);
-        Assert.assertTrue(toString.startsWith("title;http://purl.org/dc/elements/1.1/;title 0;title 1;title 2;title 3"));
-        Assert.assertTrue(toString.endsWith("remarks;http://easy.dans.knaw.nl/easy/easymetadata/eas/;remarks 0;remarks 1;remarks 2;remarks 3"));
+        Assert.assertTrue(toString.startsWith("title;http://purl.org/dc/elements/1.1/;title 0;title 1;title 2;title 3;title 4"));
+        Assert.assertTrue(toString.endsWith("remarks;http://easy.dans.knaw.nl/easy/easymetadata/eas/;remarks 0;remarks 1;remarks 2;remarks 3;remarks 4"));
     }
 
     @Test
@@ -165,7 +165,7 @@ public class EasyMetadataImplTest {
             Assert.assertTrue(values.isEmpty());
         }
 
-        EmdHelper.populate(4, (EasyMetadataImpl) emd);
+        EmdHelper.populate(5, (EasyMetadataImpl) emd);
         dc = emd.getDublinCoreMetadata();
         for (PropertyName name : PropertyName.values()) {
             List<String> values = dc.get(name);
