@@ -21,6 +21,7 @@ import nl.knaw.dans.pf.language.emd.types.BasicIdentifier;
 import nl.knaw.dans.pf.language.emd.types.BasicRemark;
 import nl.knaw.dans.pf.language.emd.types.BasicString;
 import nl.knaw.dans.pf.language.emd.types.IsoDate;
+import nl.knaw.dans.pf.language.emd.types.Polygon;
 import nl.knaw.dans.pf.language.emd.types.PolygonPart;
 import nl.knaw.dans.pf.language.emd.types.PolygonPoint;
 import nl.knaw.dans.pf.language.emd.types.Relation;
@@ -31,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -149,26 +151,40 @@ public class EmdHelper {
             for (int i = 0; i < times; i++) {
                 Spatial spat = new Spatial();
                 spat.setPlace(getBasicString(term, i));
-                if (i % 3 == 0) {
+                if (i % 4 == 0) {
                     // Spatial.Point point = new Spatial.Point("POI" + i, 123.45, 456.78);
                     Spatial.Point point = new Spatial.Point("POI" + i, "123.45", "456.78");
                     point.setSchemeId("point.bla" + i);
                     spat.setPoint(point);
-                } else if (i % 3 == 1) {
+                } else if (i % 4 == 1) {
                     // Spatial.Box box = new Spatial.Box("BOX" + i, 12.3, 23.4, 34.5, 45.6);
                     Spatial.Box box = new Spatial.Box("BOX" + i, "12.3", "23.4", "34.5", "45.6");
                     box.setSchemeId("box.bla" + i);
                     spat.setBox(box);
-                } else {
+                } else if (i % 4 == 2) {
                     PolygonPart exterior = new PolygonPart("main triangle", Arrays.asList(new PolygonPoint("52.08110", "4.34521"), new PolygonPoint("52.08071",
                             "4.34422"), new PolygonPoint("52.07913", "4.34332"), new PolygonPoint("52.08110", "4.34521")));
                     PolygonPart interior1 = new PolygonPart("hole1", Arrays.asList(new PolygonPoint("52.080542", "4.344215"), new PolygonPoint("52.080450",
                             "4.344323"), new PolygonPoint("52.080357", "4.344110"), new PolygonPoint("52.080542", "4.344215")));
                     PolygonPart interior2 = new PolygonPart("hole2", Arrays.asList(new PolygonPoint("52.080542", "4.344215"), new PolygonPoint("52.080450",
                             "4.344323"), new PolygonPoint("52.080357", "4.344110"), new PolygonPoint("52.080542", "4.344215")));
-                    Spatial.Polygon polygon = new Spatial.Polygon("POLYGON" + i, exterior, Arrays.asList(interior1, interior2));
-                    polygon.setSchemeId("polygon.bla" + 1);
+                    Polygon polygon = new Polygon("POLYGON" + i, exterior, Arrays.asList(interior1, interior2));
+                    polygon.setSchemeId("polygon.bla" + i);
                     spat.setPolygon(polygon);
+                } else if (i % 4 == 3) {
+                    PolygonPart exterior1 = new PolygonPart("main triangle", Arrays.asList(new PolygonPoint("52.08110", "4.34521"), new PolygonPoint(
+                            "52.08071", "4.34422"), new PolygonPoint("52.07913", "4.34332"), new PolygonPoint("52.08110", "4.34521")));
+                    PolygonPart interior1 = new PolygonPart("hole1", Arrays.asList(new PolygonPoint("52.080542", "4.344215"), new PolygonPoint("52.080450",
+                            "4.344323"), new PolygonPoint("52.080357", "4.344110"), new PolygonPoint("52.080542", "4.344215")));
+                    Polygon polygon1 = new Polygon("POLYGON" + i, exterior1, Collections.singletonList(interior1));
+                    polygon1.setSchemeId("polygon.bla" + i + "a");
+
+                    PolygonPart exterior2 = new PolygonPart("main triangle", Arrays.asList(new PolygonPoint("52.079710", "4.342778"), new PolygonPoint(
+                            "52.080518", "4.343342"), new PolygonPoint("52.07913", "4.34332"), new PolygonPoint("52.079710", "4.342778")));
+                    Polygon polygon2 = new Polygon("POLYGON" + i, exterior2, Collections.<PolygonPart> emptyList());
+                    polygon2.setSchemeId("polygon.bla" + i + "b");
+
+                    spat.setPolygons(Arrays.asList(polygon1, polygon2));
                 }
                 list.add(spat);
             }

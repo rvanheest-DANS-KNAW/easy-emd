@@ -71,6 +71,11 @@ public final class ListFactory {
     }
 
     // Method used by JiBX serialization.
+    static synchronized List<Polygon> polygonList() {
+        return new ArrayList<Polygon>();
+    }
+
+    // Method used by JiBX serialization.
     static synchronized List<PolygonPart> polygonPartList() {
         return new ArrayList<PolygonPart>();
     }

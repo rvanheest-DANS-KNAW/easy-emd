@@ -16,7 +16,10 @@
 package nl.knaw.dans.pf.language.emd.types;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Expresses a spatial coverage.
@@ -36,7 +39,7 @@ public class Spatial implements MetadataItem {
 
     private Box box;
 
-    private Polygon polygon;
+    private List<Polygon> polygons;
 
     /**
      * Constructor.
@@ -76,7 +79,13 @@ public class Spatial implements MetadataItem {
     public Spatial(String place, Polygon polygon) {
         super();
         this.place = new BasicString(place);
-        this.polygon = polygon;
+        this.setPolygon(polygon);
+    }
+
+    public Spatial(String place, List<Polygon> polygons) {
+        super();
+        this.place = new BasicString(place);
+        this.setPolygons(polygons);
     }
 
     /**
@@ -116,7 +125,7 @@ public class Spatial implements MetadataItem {
      *         if this spatial expresses a box
      */
     public void setPoint(final Point point) throws IllegalStateException {
-        if (box != null || polygon != null) {
+        if (box != null || polygons != null) {
             throw new IllegalStateException(String.format("Only one of %s or %s or %s is acceptable.", Point.class.getName(), Box.class.getName(),
                     Polygon.class.getName()));
         } else {
@@ -142,7 +151,7 @@ public class Spatial implements MetadataItem {
      *         if this spatial expresses a point
      */
     public void setBox(final Box box) throws IllegalStateException {
-        if (point != null || polygon != null) {
+        if (point != null || polygons != null) {
             throw new IllegalStateException(String.format("Only one of %s or %s or %s is acceptable.", Point.class.getName(), Box.class.getName(),
                     Polygon.class.getName()));
         } else {
@@ -150,8 +159,8 @@ public class Spatial implements MetadataItem {
         }
     }
 
-    public Polygon getPolygon() {
-        return this.polygon;
+    public List<Polygon> getPolygons() {
+        return this.polygons;
     }
 
     public void setPolygon(Polygon polygon) {
@@ -159,7 +168,27 @@ public class Spatial implements MetadataItem {
             throw new IllegalStateException(String.format("Only one of %s or %s or %s is acceptable.", Point.class.getName(), Box.class.getName(),
                     Polygon.class.getName()));
         } else {
-            this.polygon = polygon;
+            this.polygons = new ArrayList<Polygon>();
+            this.polygons.add(polygon);
+        }
+    }
+
+    public void setPolygons(List<Polygon> polygons) {
+        if (point != null || box != null) {
+            throw new IllegalStateException(String.format("Only one of %s or %s or %s is acceptable.", Point.class.getName(), Box.class.getName(),
+                    Polygon.class.getName()));
+        } else {
+            Set<String> schemes = new HashSet<String>();
+            for (Polygon polygon : polygons) {
+                String scheme = polygon.getScheme();
+                if (scheme != null)
+                    schemes.add(scheme);
+            }
+
+            if (schemes.size() > 1)
+                throw new IllegalArgumentException("Only one scheme is allowed in the polygons.");
+            else
+                this.polygons = polygons;
         }
     }
 
@@ -170,8 +199,8 @@ public class Spatial implements MetadataItem {
             return point.getScheme();
         } else if (box != null) {
             return box.getScheme();
-        } else if (polygon != null) {
-            return polygon.getScheme();
+        } else if (polygons != null && !polygons.isEmpty()) {
+            return polygons.get(0).getScheme();
         } else {
             return null;
         }
@@ -186,7 +215,7 @@ public class Spatial implements MetadataItem {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         if (place != null) {
-            builder.append("name=" + place.toString() + " ");
+            builder.append("name=").append(place.toString()).append(" ");
         }
         if (point != null) {
             builder.append(point.toString());
@@ -194,8 +223,10 @@ public class Spatial implements MetadataItem {
         if (box != null) {
             builder.append(box.toString());
         }
-        if (polygon != null) {
-            builder.append(polygon.toString());
+        if (polygons != null && !polygons.isEmpty()) {
+            for (Polygon polygon : polygons) {
+                builder.append(polygon.toString()).append(" ");
+            }
         }
         return builder.toString();
     }
@@ -206,8 +237,15 @@ public class Spatial implements MetadataItem {
             complete = point.isComplete();
         } else if (box != null) {
             complete = box.isComplete();
-        } else if (polygon != null) {
-            complete = polygon.isComplete();
+        } else if (polygons != null) {
+            if (polygons.isEmpty())
+                complete = false;
+            else
+                for (Polygon polygon : polygons) {
+                    boolean polygonComplete = polygon.isComplete();
+                    if (complete)
+                        complete = polygonComplete;
+                }
         }
         return complete;
     }
@@ -508,56 +546,5 @@ public class Spatial implements MetadataItem {
             return getScheme() != null && getNorth() != null && getEast() != null && getSouth() != null && getWest() != null;
         }
 
-    }
-
-    public static class Polygon extends Locator {
-
-        private static final long serialVersionUID = 7316626274747251053L;
-
-        private PolygonPart exterior;
-        private List<PolygonPart> interior;
-
-        public Polygon() {
-            super();
-        }
-
-        public Polygon(String scheme, PolygonPart exterior, List<PolygonPart> interior) {
-            super(scheme);
-            this.exterior = exterior;
-            this.interior = interior;
-        }
-
-        public PolygonPart getExterior() {
-            return this.exterior;
-        }
-
-        public void setExterior(PolygonPart exterior) {
-            this.exterior = exterior;
-        }
-
-        public List<PolygonPart> getInterior() {
-            return this.interior;
-        }
-
-        public void setInterior(List<PolygonPart> interior) {
-            this.interior = interior;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("(exterior=%s, interior=%s)", this.exterior, this.interior);
-        }
-
-        public boolean isComplete() {
-            return this.exterior != null && this.interior != null && this.exterior.isComplete() && isComplete(this.interior);
-        }
-
-        private boolean isComplete(List<PolygonPart> pps) {
-            for (PolygonPart pp : pps) {
-                if (!pp.isComplete())
-                    return false;
-            }
-            return true;
-        }
     }
 }
