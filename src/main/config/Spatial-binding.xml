@@ -41,14 +41,18 @@
 			<value style="element" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="south" field="south" usage="optional"/>
 			<value style="element" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="west" field="west" usage="optional"/>
 		</structure>
-        <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon" field="polygon" usage="optional">
+        <collection ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" field="polygons" factory="nl.knaw.dans.pf.language.emd.types.ListFactory.polygonList" usage="optional">
+            <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon" type="nl.knaw.dans.pf.language.emd.types.Polygon" usage="optional"/>
+        </collection>
+
+        <!--<structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon" field="polygon" usage="optional">
             <value style="attribute" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="scheme" field="scheme" usage="optional"/>
             <value style="attribute" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="schemeId" field="schemeId" usage="optional"/>
             <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon-exterior" field="exterior" type="nl.knaw.dans.pf.language.emd.types.PolygonPart" usage="optional"/>
             <collection ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" field="interior" factory="nl.knaw.dans.pf.language.emd.types.ListFactory.polygonPartList" usage="optional">
                 <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon-interior" type="nl.knaw.dans.pf.language.emd.types.PolygonPart" usage="optional"/>
             </collection>
-        </structure>
+        </structure>-->
 	</mapping>
 
     <mapping class="nl.knaw.dans.pf.language.emd.types.PolygonPoint" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" abstract="true">
@@ -62,6 +66,17 @@
         <value style="element" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="place" field="place" usage="optional"/>
         <collection ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" field="points" factory="nl.knaw.dans.pf.language.emd.types.ListFactory.polygonPointList">
             <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon-point" type="nl.knaw.dans.pf.language.emd.types.PolygonPoint" usage="optional"/>
+        </collection>
+    </mapping>
+
+    <mapping class="nl.knaw.dans.pf.language.emd.types.Polygon" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" abstract="true">
+        <namespace uri="http://easy.dans.knaw.nl/easy/easymetadata/eas/" prefix="eas" />
+        <value style="attribute" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="scheme" field="scheme" usage="optional"/>
+        <value style="attribute" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="schemeId" field="schemeId" usage="optional"/>
+        <value style="element" ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="place" field="place" usage="optional"/>
+        <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon-exterior" field="exterior" type="nl.knaw.dans.pf.language.emd.types.PolygonPart" usage="optional"/>
+        <collection ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" field="interior" factory="nl.knaw.dans.pf.language.emd.types.ListFactory.polygonPartList" usage="optional">
+            <structure ns="http://easy.dans.knaw.nl/easy/easymetadata/eas/" name="polygon-interior" type="nl.knaw.dans.pf.language.emd.types.PolygonPart" usage="optional"/>
         </collection>
     </mapping>
 </binding>
