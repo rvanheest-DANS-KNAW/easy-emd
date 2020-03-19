@@ -27,7 +27,7 @@
 	<artifactId>emd</artifactId>
 	<name>EASY Metadata Library (EMD)</name>
     <inceptionYear>2014</inceptionYear>
-    <version>3.9.1-SNAPSHOT</version>
+    <version>3.9.1</version>
     <properties>
         <easy.xml.version>2.16</easy.xml.version>
         <dans-jibx.version>2.16</dans-jibx.version>
@@ -39,7 +39,7 @@
     <scm>
         <!-- Attention project name != artifactId -->
         <developerConnection>scm:git:https://github.com/DANS-KNAW/easy-emd</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v3.9.1</tag>
     </scm>
 	<dependencies>
 		<dependency>
